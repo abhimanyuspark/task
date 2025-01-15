@@ -26,7 +26,7 @@ const Input = ({
           type={type}
           value={value}
           placeholder={placeholder}
-          className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1  placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 sm:text-sm/6 ${
+          className={`block w-full rounded-sm bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1  placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 sm:text-sm/6 ${
             error
               ? "outline-red-500 focus:outline-red-600"
               : "outline-gray-300 focus:outline-indigo-600"
@@ -55,7 +55,7 @@ const Select = ({ value, onChange, children, label }) => {
         name={label}
         value={value}
         onChange={onChange}
-        className="border border-slate-300 p-2 rounded-[0.2rem]"
+        className="border border-slate-300 p-2 rounded-sm"
       >
         {children}
       </select>
