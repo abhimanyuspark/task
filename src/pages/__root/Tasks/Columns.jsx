@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { Link, useLocation, useNavigate } from "react-router";
-import { MenuOptions, Select } from "../../../components";
+import { MenuOptions } from "../../../components";
 import { FaEdit, FaTrash, FaEye } from "../../../components/Icons";
 import { MenuItem } from "@headlessui/react";
 import { deleteTask } from "../../../redux/server/server";
@@ -32,7 +31,7 @@ export const Columns = [
       return (
         <div className="w-44 cursor-pointer">
           <Link
-            to={`/task/${id}`}
+            to={`/view/${id}`}
             className="text-sm hover:underline text-slate-700 font-semibold"
           >
             {value}
@@ -54,36 +53,41 @@ export const Columns = [
   {
     accessorKey: "status",
     header: "Status",
+    // cell: (info) => {
+    //   const value = info.getValue();
+    //   const [state, setState] = useState(value);
+
+    //   const statusMenu = [
+    //     {
+    //       status: true,
+    //       name: "Completed",
+    //     },
+    //     {
+    //       status: false,
+    //       name: "In complete",
+    //     },
+    //   ];
+    //   return (
+    //     <Select
+    //       onChange={(e) => {
+    //         setState(e.target.value);
+    //         toast.success(`${state ? "Completed" : "In complete"}`);
+    //       }}
+    //       value={state}
+    //     >
+    //       {statusMenu.map((s, i) => (
+    //         <option key={i} value={s.status}>
+    //           {s.name}
+    //         </option>
+    //       ))}
+    //     </Select>
+    //   );
+    // },
     cell: (info) => {
       const value = info.getValue();
-      const [state, setState] = useState(value);
-
-      const statusMenu = [
-        {
-          status: true,
-          name: "Completed",
-        },
-        {
-          status: false,
-          name: "In complete",
-        },
-      ];
-      return (
-        <Select
-          onChange={(e) => {
-            setState(e.target.value);
-            toast.success(`${state ? "Completed" : "In completed"}`);
-          }}
-          value={state}
-        >
-          {statusMenu.map((s, i) => (
-            <option key={i} value={s.status}>
-              {s.name}
-            </option>
-          ))}
-        </Select>
-      );
+      return <span>{value ? "Completed" : "In complete"}</span>;
     },
+    sortDescFirst: false,
   },
   {
     accessorKey: "id",

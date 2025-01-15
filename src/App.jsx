@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 import "./App.css";
 import { Suspense } from "react";
-import { Dashboard, NotFound, TaskForms } from "./pages";
+import { Dashboard, NotFound, TaskForms, ViewTasks } from "./pages";
 import { Layout } from "./layout";
 import { Loading } from "./components";
 import { ToastContainer } from "react-toastify";
@@ -14,7 +14,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/add" element={<TaskForms />} />
-            <Route path="/view/:id" element={<div>View</div>} />
+            <Route path="/view/:id" element={<ViewTasks />} />
             <Route path="/edit/:id" element={<TaskForms />} />
 
             <Route path="*" element={<NotFound />} />

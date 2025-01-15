@@ -20,8 +20,8 @@ export const editTask = createAsyncThunk("tasks/editTask", async ({ id, updates 
 });
 
 export const deleteTask = createAsyncThunk("tasks/deleteTask", async (id) => {
-  await axios.delete(`${url}/${id}`);
-  return id;
+  const res = await axios.delete(`${url}/${id}`);
+  return res.data;
 });
 
 // New thunk to view a single task

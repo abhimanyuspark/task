@@ -1,70 +1,95 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Select, Input, Button, validation } from "../../../components";
-import { useParams } from "react-router";
-import { addTask, editTask } from "../../../redux/server/server";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Select,
+  Input,
+  Button,
+  validation,
+  Loading,
+} from "../../../components";
+import { useParams, useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import { addTask, editTask, viewTask } from "../../../redux/server/server";
 
 const TaskForms = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading } = useSelector((state) => state.tasks);
+
   const [formData, setFormData] = useState({
     id: "",
     title: "",
     status: false,
-    created_At: id ? new Date() : "",
-    updated_At: new Date(),
+    created_At: id ? "" : new Date(),
+    updated_At: "",
   });
+
   const [formError, setFormError] = useState({
     title: "",
   });
-
-  const onSubmit = (e) => {
+  
+  const onSubmit = async (e) => {
     e.preventDefault();
+
     const validError = validation(formData);
     const isValid = Object.keys(validError).length === 0;
 
     if (isValid) {
       if (id) {
-        dispatch(editTask({ id, formData }));
+        const updatedFormData = { ...formData, updated_At: new Date() };
+        await dispatch(editTask({ id, updates: updatedFormData }));
+        toast.success("Task Updated Successfully");
       } else {
-        dispatch(addTask(formData));
+        await dispatch(addTask(formData));
+        toast.success("Task Added Successfully");
       }
-    }
-    else{
-      setFormError(validError)
+      navigate(-1);
+    } else {
+      setFormError(validError);
     }
   };
 
   useEffect(() => {
     if (id) {
-      dispatch(viewTask(id)).then((data) => {
-        setFormData({
-          taskId: data.taskId,
-          title: data.title,
-          status: data.completed,
-          created_At: data.created_At,
-        });
-      });
+      const fetchTask = async () => {
+        const res = await dispatch(viewTask(id));
+        const data = res.payload;
+
+        if (data) {
+          setFormData((p) => ({ ...p, ...data }));
+        }
+      };
+      fetchTask();
     }
   }, [dispatch, id]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>
       <form onSubmit={onSubmit} className="flex gap-4 flex-col">
         <Input
-          label={"Title"}
+          label="Title"
           name="title"
           value={formData.title}
           error={formError.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          onChange={(e) => setFormData((prev) => ({ ...prev, title: e }))}
         />
         <Select
           label="Status"
           value={formData.status}
-          onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+          onChange={(e) =>
+            setFormData((prev) => ({
+              ...prev,
+              status: e.target.value === "true",
+            }))
+          }
         >
           <option value="true">Completed</option>
-          <option value="false">Not Completed</option>
+          <option value="false">In complete</option>
         </Select>
 
         <Button type="submit">Submit</Button>

@@ -62,7 +62,7 @@ const Table = ({
 
   return (
     <div className="w-full lg:overflow-visible overflow-auto">
-      <table className="w-full">
+      <table className="w-full table-auto">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -121,7 +121,7 @@ const Table = ({
             <tr>
               <td colSpan={columnSpan}>
                 <div className="flex items-center justify-center p-2">
-                  No data Found
+                  No Tasks Yet
                 </div>
               </td>
             </tr>
@@ -130,7 +130,7 @@ const Table = ({
         <tfoot>
           <tr>
             <td colSpan={columnSpan} className="p-2">
-              <div className="flex justify-between">
+              <div className="flex justify-normal sm:flex-row flex-col sm:justify-between">
                 <div className="flex items-center gap-2">
                   <div className="flex gap-2 items-center">
                     <label>

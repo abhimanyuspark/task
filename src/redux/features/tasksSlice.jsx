@@ -65,7 +65,7 @@ const tasksSlice = createSlice({
       })
       .addCase(editTask.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.tasks = action.payload;
+        state.viewedTask = action.payload;
       })
       .addCase(editTask.rejected, (state, action) => {
         state.isLoading = false;
@@ -78,7 +78,7 @@ const tasksSlice = createSlice({
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.tasks = action.payload;
+        state.tasks = state.tasks.filter((d) => d.id !== action.payload.id);
       })
       .addCase(deleteTask.rejected, (state, action) => {
         state.isLoading = false;
