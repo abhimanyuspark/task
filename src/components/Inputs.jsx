@@ -8,14 +8,14 @@ const Input = ({
   placeholder,
   label,
   error,
-  className,
+  className = "",
   ...props
 }) => {
   return (
     <div
       className={
         className +
-        "flex gap-3 flex-col text-sm/6 font-medium text-gray-900 w-full"
+        " flex gap-3 flex-col text-sm/6 font-medium text-gray-900 w-full"
       }
     >
       <label

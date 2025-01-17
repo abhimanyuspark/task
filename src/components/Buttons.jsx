@@ -1,4 +1,5 @@
 import React from "react";
+import { FaTimes } from "./Icons"
 
 const Loader = () => {
   return (
@@ -49,4 +50,25 @@ const CancelButton = ({
   );
 };
 
-export { Button, CancelButton };
+const ClearButton = ({
+  text = "Clear",
+  onClick,
+  icon="",
+  type = "button",
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      type={type}
+      style={{ transition: "all 0.2s ease" }}
+      className="px-2 py-1.5 flex justify-center items-center rounded-sm font-semibold border border-black hover:bg-black hover:text-white sm:w-auto w-full"
+    >
+      <div className="flex items-center gap-1">
+        {icon || <FaTimes className="size-4" />}
+        <span className="text-sm">{text}</span>
+      </div>
+    </button>
+  );
+};
+
+export { Button, CancelButton, ClearButton };
