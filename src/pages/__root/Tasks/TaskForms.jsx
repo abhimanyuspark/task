@@ -67,7 +67,7 @@ const TaskForms = () => {
         id: "",
         title: "",
         status: "pending",
-        created_At: "",
+        created_At: new Date(),
         updated_At: "",
       }));
     } else {
