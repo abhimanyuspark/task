@@ -15,7 +15,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex gap-4 flex-col items-start">
-      <div className="py-4 px-8 border-b bg-white border-slate-300 w-full flex items-start sm:items-center sm:justify-between justify-stretch flex-col sm:flex-row sm:gap-0 gap-4">
+      <div className="py-4 px-8 border-b bg-white border-slate-300 w-full flex flex-wrap gap-4 justify-between">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">
           Dashboard
         </h1>
