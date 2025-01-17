@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <>
+    <div>
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route element={<Layout />}>
@@ -34,7 +34,7 @@ function App() {
           theme="colored"
         />
       </Suspense>
-    </>
+    </div>
   );
 }
 

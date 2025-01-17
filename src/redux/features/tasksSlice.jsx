@@ -73,15 +73,15 @@ const tasksSlice = createSlice({
       })
 
       // Delete task
-      .addCase(deleteTask.pending, (state, action) => {
-        state.isLoading = true;
-      })
+      // .addCase(deleteTask.pending, (state, action) => {
+      //   state.isLoading = true;
+      // })
       .addCase(deleteTask.fulfilled, (state, action) => {
-        state.isLoading = false;
+        // state.isLoading = false;
         state.tasks = state.tasks.filter((d) => d.id !== action.payload.id);
       })
       .addCase(deleteTask.rejected, (state, action) => {
-        state.isLoading = false;
+        // state.isLoading = false;
         state.error = action.payload;
       });
   },

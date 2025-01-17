@@ -130,7 +130,7 @@ const Table = ({
         <tfoot>
           <tr>
             <td colSpan={columnSpan} className="p-2">
-              <div className="flex justify-normal sm:flex-row flex-col sm:justify-between">
+              <div className="flex justify-normal sm:flex-row flex-col sm:justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <div className="flex gap-2 items-center">
                     <label>

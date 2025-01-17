@@ -6,6 +6,7 @@ import { MenuOptions } from "../../../components";
 import { FaEdit, FaTrash, FaEye } from "../../../components/Icons";
 import { MenuItem } from "@headlessui/react";
 import { deleteTask } from "../../../redux/server/server";
+// import { statusData } from "../../../data/data";
 
 export const Columns = [
   {
@@ -29,7 +30,7 @@ export const Columns = [
       const value = info.getValue();
       const { id } = info.row.original;
       return (
-        <div className="w-44 cursor-pointer">
+        <div className="cursor-pointer w-44 sm:w-auto">
           <Link
             to={`/view/${id}`}
             className="text-sm hover:underline text-slate-700 font-semibold"
@@ -46,7 +47,7 @@ export const Columns = [
     cell: (info) => {
       const value = info.getValue();
       const date = new Date(value);
-      return <span>{date.toLocaleDateString()}</span>;
+      return <span className="w-32 block">{date.toLocaleDateString() + " " + date.toLocaleTimeString()}</span>;
     },
     sortDescFirst: false,
   },
@@ -57,16 +58,6 @@ export const Columns = [
     //   const value = info.getValue();
     //   const [state, setState] = useState(value);
 
-    //   const statusMenu = [
-    //     {
-    //       status: true,
-    //       name: "Completed",
-    //     },
-    //     {
-    //       status: false,
-    //       name: "In complete",
-    //     },
-    //   ];
     //   return (
     //     <Select
     //       onChange={(e) => {
@@ -75,8 +66,8 @@ export const Columns = [
     //       }}
     //       value={state}
     //     >
-    //       {statusMenu.map((s, i) => (
-    //         <option key={i} value={s.status}>
+    //       {statusData.map((s, i) => (
+    //         <option key={i} value={s.value}>
     //           {s.name}
     //         </option>
     //       ))}
@@ -85,7 +76,7 @@ export const Columns = [
     // },
     cell: (info) => {
       const value = info.getValue();
-      return <span>{value ? "Completed" : "In complete"}</span>;
+      return value;
     },
     sortDescFirst: false,
   },
@@ -121,7 +112,7 @@ export const Columns = [
         }).then(async (result) => {
           if (result.isConfirmed) {
             await dispatch(deleteTask(id));
-            toast.success("Task Deleted SuccessFully " + title);
+            toast.success(title + " Task Deleted SuccessFully");
           }
         });
       };

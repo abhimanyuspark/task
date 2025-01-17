@@ -3,11 +3,12 @@ import axios from "axios";
 
 const url = "https://6758099f60576a194d0e735c.mockapi.io/tasks";
 
-// Existing thunks for CRUD operations
 export const getTasks = createAsyncThunk("tasks/fetchTasks", async () => {
   const res = await axios.get(url);
   return res.data;
 });
+
+// Existing thunks for CRUD operations
 
 export const addTask = createAsyncThunk("tasks/addTask", async (task) => {
   const res = await axios.post(url, task);
@@ -24,7 +25,6 @@ export const deleteTask = createAsyncThunk("tasks/deleteTask", async (id) => {
   return res.data;
 });
 
-// New thunk to view a single task
 export const viewTask = createAsyncThunk("tasks/viewTask", async (id) => {
   const res = await axios.get(`${url}/${id}`);
   return res.data;

@@ -29,4 +29,24 @@ const Button = ({
   );
 };
 
-export { Button };
+const CancelButton = ({
+  height = "40px",
+  text = "Cancel",
+  onClick,
+  type = "button",
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      type={type}
+      style={{ height: height, transition: "all 0.2s ease" }}
+      className="px-3 flex justify-center items-center rounded-sm font-semibold hover:text-white text-black hover:bg-black"
+    >
+      <div className="flex items-center gap-3">
+        <span className="text-lg">{text}</span>
+      </div>
+    </button>
+  );
+};
+
+export { Button, CancelButton };
