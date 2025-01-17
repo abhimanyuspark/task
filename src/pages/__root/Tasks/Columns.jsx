@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { Link, useLocation, useNavigate } from "react-router";
-import { MenuOptions } from "../../../components";
+import { DateFilter, MenuOptions } from "../../../components";
 import { FaEdit, FaTrash, FaEye } from "../../../components/Icons";
 import { MenuItem } from "@headlessui/react";
 import { deleteTask } from "../../../redux/server/server";
@@ -30,7 +30,7 @@ export const Columns = [
       const value = info.getValue();
       const { id } = info.row.original;
       return (
-        <div className="cursor-pointer w-44 sm:w-auto">
+        <div className="cursor-pointer w-52 sm:w-auto">
           <Link
             to={`/view/${id}`}
             className="text-sm hover:underline text-slate-700 font-semibold"
@@ -47,9 +47,14 @@ export const Columns = [
     cell: (info) => {
       const value = info.getValue();
       const date = new Date(value);
-      return <span className="w-32 block">{date.toLocaleDateString() + " " + date.toLocaleTimeString()}</span>;
+      return (
+        <span className="w-44 block">
+          {date.toLocaleDateString() + " " + date.toLocaleTimeString()}
+        </span>
+      );
     },
     sortDescFirst: false,
+    filterFn: "myCustomFilterFn"
   },
   {
     accessorKey: "status",
@@ -76,7 +81,7 @@ export const Columns = [
     // },
     cell: (info) => {
       const value = info.getValue();
-      return value;
+      return <span className="w-28 block">{value}</span>;
     },
     sortDescFirst: false,
   },

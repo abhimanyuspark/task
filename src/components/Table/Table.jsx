@@ -22,6 +22,8 @@ const Table = ({
   setGlobalFilter,
   globalFilter,
   loading = false,
+  setColumnFilters,
+  columnFilters,
 }) => {
   const [rowSelection, setRowSelection] = useState({});
   const columns = useMemo(() => Columns, [Columns]);
@@ -34,10 +36,33 @@ const Table = ({
       rowSelection,
       sorting,
       globalFilter,
+      columnFilters,
     },
+    onColumnFiltersChange: setColumnFilters,
     onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,
     enableRowSelection: true,
+    filterFns: {
+      myCustomFilterFn: (row, _, filterValue) => {
+        const [start, end] = filterValue;
+      
+        const startDate = start ? new Date(start) : null;
+        const endDate = end ? new Date(end) : null;
+        const date = new Date(row.original?.created_At);
+      
+        if (startDate && date < startDate) {
+          return false;
+        }
+        if (endDate) {
+          // Add one day to the end date to include it in the filter
+          endDate.setDate(endDate.getDate() + 1);
+          if (date >= endDate) {
+            return false;
+          }
+        }
+        return true;
+      },
+    },
     onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -121,7 +146,7 @@ const Table = ({
             <tr>
               <td colSpan={columnSpan}>
                 <div className="flex items-center justify-center p-2">
-                  No Tasks Yet
+                  No Tasks Found
                 </div>
               </td>
             </tr>

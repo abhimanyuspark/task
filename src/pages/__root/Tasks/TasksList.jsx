@@ -4,7 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Table from "../../../components/Table/Table";
 import { getTasks } from "../../../redux/server/server";
 
-const TasksList = () => {
+const TasksList = ({
+  globalFilter,
+  setGlobalFilter,
+  setColumnFilters,
+  columnFilters,
+}) => {
   const { tasks, isLoading } = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
 
@@ -17,8 +22,10 @@ const TasksList = () => {
       loading={isLoading}
       Columns={Columns}
       data={tasks}
-      // globalFilter={globalFilter}
-      // setGlobalFilter={setGlobalFilter}
+      globalFilter={globalFilter}
+      setGlobalFilter={setGlobalFilter}
+      columnFilters={columnFilters}
+      setColumnFilters={setColumnFilters}
     />
   );
 };

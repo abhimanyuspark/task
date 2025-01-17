@@ -8,16 +8,22 @@ const Input = ({
   placeholder,
   label,
   error,
+  className,
   ...props
 }) => {
   return (
-    <label
-      htmlFor={name}
-      className="flex gap-3 flex-col text-sm/6 font-medium text-gray-900"
+    <div
+      className={
+        className +
+        "flex gap-3 flex-col text-sm/6 font-medium text-gray-900 w-full"
+      }
     >
-      <span className="block text-sm/6 font-semibold text-slate-700">
+      <label
+        htmlFor={name}
+        className="cursor-pointer block text-sm/6 font-semibold text-slate-700"
+      >
         {label}
-      </span>
+      </label>
 
       <input
         id={name}
@@ -37,17 +43,14 @@ const Input = ({
       />
 
       <p className="text-red-500 text-sm">{error}</p>
-    </label>
+    </div>
   );
 };
 
 const Select = ({ value, onChange, children, label }) => {
   return (
-    <label
-      htmlFor={label}
-      className="flex gap-3 flex-col text-sm/6 font-medium text-gray-900"
-    >
-      <span>{label}</span>
+    <div className="flex gap-3 flex-col text-sm/6 font-medium text-gray-900">
+      <label htmlFor={label} className="cursor-pointer">{label}</label>
       <select
         id={label}
         name={label}
@@ -57,7 +60,7 @@ const Select = ({ value, onChange, children, label }) => {
       >
         {children}
       </select>
-    </label>
+    </div>
   );
 };
 
