@@ -78,7 +78,7 @@ const SwitchButton = ({ onClick, value }) => {
       onClick={onClick}
     >
       <div
-        className={`p-4 transition-all absolute bg-white top-1 z-1 ${
+        className={`p-4 rounded-sm transition-all absolute bg-white top-1 z-1 ${
           value === "list" ? "left-1" : "translate-x-11"
         }`}
       ></div>

@@ -51,9 +51,6 @@ const Dashboard = () => {
         {/* Date filter */}
         <DateFilter value={columnFilters} onChange={handleDateFilterChange} />
 
-        {/* clear */}
-        {show ? <ClearButton onClick={onClear} /> : ""}
-
         {/* serach filter */}
         <div className="flex items-center sm:w-auto w-full">
           <div className="size-9 flex items-center justify-center bg-slate-500 rounded-l-sm">
@@ -70,6 +67,9 @@ const Dashboard = () => {
             placeholder="Search tasks here..."
           />
         </div>
+
+        {/* clear */}
+        {show ? <ClearButton onClick={onClear} /> : ""}
       </div>
 
       <div className="p-8 w-full">
@@ -82,10 +82,7 @@ const Dashboard = () => {
             icon={<FaPlus />}
           />
 
-          <SwitchButton
-            onClick={onSwitch}
-            value={view}
-          />
+          <SwitchButton onClick={onSwitch} value={view} />
         </div>
         <br />
 
@@ -97,10 +94,7 @@ const Dashboard = () => {
             setGlobalFilter={setQuery}
           />
         ) : (
-          <TasksGrid 
-            globalFilter={query} 
-            columnFilters={columnFilters} 
-          />
+          <TasksGrid globalFilter={query} columnFilters={columnFilters} />
         )}
       </div>
     </div>
