@@ -18,15 +18,17 @@ const TasksList = ({
   }, []);
 
   return (
-    <Table
-      loading={isLoading}
-      Columns={Columns}
-      data={tasks}
-      globalFilter={globalFilter}
-      setGlobalFilter={setGlobalFilter}
-      columnFilters={columnFilters}
-      setColumnFilters={setColumnFilters}
-    />
+    <div className="flex gap-4 p-4 flex-col sm:items-start items-stretch bg-white border border-slate-300 rounded-sm">
+      <Table
+        loading={isLoading}
+        Columns={Columns}
+        data={tasks}
+        globalFilter={globalFilter}
+        setGlobalFilter={setGlobalFilter}
+        columnFilters={columnFilters}
+        setColumnFilters={setColumnFilters}
+      />
+    </div>
   );
 };
 

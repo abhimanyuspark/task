@@ -35,6 +35,7 @@ import {
   import { IoMdMenu, IoMdFemale, IoMdMale } from "react-icons/io";
   import { BsThreeDotsVertical, BsFillKanbanFill } from "react-icons/bs";
   import { SlCloudUpload } from "react-icons/sl";
+  import {FiGrid} from "react-icons/fi"
   
   export {
     FaDashcube,
@@ -75,5 +76,6 @@ import {
     MdLogin,
     MdLogout,
     SlCloudUpload,
-    FaEllipsisV 
+    FaEllipsisV ,
+    FiGrid
   };

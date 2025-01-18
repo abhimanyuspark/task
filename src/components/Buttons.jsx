@@ -1,5 +1,5 @@
 import React from "react";
-import { FaTimes } from "./Icons"
+import { FaList, FaTimes, FiGrid } from "./Icons";
 
 const Loader = () => {
   return (
@@ -53,7 +53,7 @@ const CancelButton = ({
 const ClearButton = ({
   text = "Clear",
   onClick,
-  icon="",
+  icon = "",
   type = "button",
 }) => {
   return (
@@ -71,4 +71,36 @@ const ClearButton = ({
   );
 };
 
-export { Button, CancelButton, ClearButton };
+const SwitchButton = ({ onClick, value }) => {
+  return (
+    <div
+      className="relative text-white h-10 rounded-sm bg-black w-20"
+      onClick={onClick}
+    >
+      <div
+        className={`p-4 transition-all absolute bg-white top-1 z-1 ${
+          value === "list" ? "left-1" : "translate-x-11"
+        }`}
+      ></div>
+      <div className={`absolute z-2 top-0.5 left-0.5 flex items-center gap-1`}>
+        <div className="p-2">
+          <FaList
+            className={`size-5 ${
+              value === "list" ? "text-black" : "text-white"
+            }`}
+          />
+        </div>
+
+        <div className="p-1.5">
+          <FiGrid
+            className={`size-6 ${
+              value === "grid" ? "text-black" : "text-white"
+            }`}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export { Button, CancelButton, ClearButton, SwitchButton };

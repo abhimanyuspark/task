@@ -17,7 +17,11 @@ const initialState = {
 const tasksSlice = createSlice({
   name: "tasks",
   initialState,
-  reducers: {},
+  reducers: {
+    resetViewedTask: (state) => {
+      state.viewedTask = {};
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Fetch all tasks
@@ -86,5 +90,7 @@ const tasksSlice = createSlice({
       });
   },
 });
+
+export const { resetViewedTask } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

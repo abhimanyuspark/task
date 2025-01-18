@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TasksList from "./Tasks/TasksList";
-import { Button, ClearButton, DateFilter, Input } from "../../components";
+import TasksGrid from "./Tasks/TasksGrid";
+import {
+  Button,
+  ClearButton,
+  DateFilter,
+  Input,
+  SwitchButton,
+} from "../../components";
 import { FaPlus, FaSearch } from "../../components/Icons";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [show, setShow] = useState(false);
+  const [temp, setTemp] = useSearchParams();
+  const [view, setView] = useState(temp.get("view") || "list");
   const [columnFilters, setColumnFilters] = useState([]);
 
   const handleDateFilterChange = (startDate, endDate) => {
@@ -20,6 +29,17 @@ const Dashboard = () => {
     setColumnFilters([]);
     setShow(false);
   };
+
+  const onSwitch = () => {
+    const check = view === "list" ? "grid" : "list";
+    setView(check);
+    setTemp({ view: check });
+  };
+
+  useEffect(() => {
+    const check = temp.get("view") || "list";
+    setView(check);
+  }, [temp]);
 
   return (
     <div className="flex flex-col">
@@ -47,30 +67,41 @@ const Dashboard = () => {
               setShow(true);
             }}
             className="sm:w-52 w-full"
-            placeholder="Serach tasks here..."
+            placeholder="Search tasks here..."
           />
         </div>
       </div>
 
       <div className="p-8 w-full">
-        <Button
-          onClick={() => {
-            navigate("/add");
-          }}
-          text="Add Tasks"
-          icon={<FaPlus />}
-        />
+        <div className="flex justify-between items-center">
+          <Button
+            onClick={() => {
+              navigate("/add");
+            }}
+            text="Add Tasks"
+            icon={<FaPlus />}
+          />
 
+          <SwitchButton
+            onClick={onSwitch}
+            value={view}
+          />
+        </div>
         <br />
 
-        <div className="flex gap-4 p-4 flex-col sm:items-start items-stretch bg-white border border-slate-300 rounded-sm">
+        {view === "list" ? (
           <TasksList
             columnFilters={columnFilters}
             setColumnFilters={setColumnFilters}
             globalFilter={query}
             setGlobalFilter={setQuery}
           />
-        </div>
+        ) : (
+          <TasksGrid 
+            globalFilter={query} 
+            columnFilters={columnFilters} 
+          />
+        )}
       </div>
     </div>
   );

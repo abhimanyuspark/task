@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { viewTask } from "../../../redux/server/server";
 import { useDispatch, useSelector } from "react-redux";
-import { Loading } from "../../../components";
+import { Loader } from "../../../components";
+import { resetViewedTask } from "../../../redux/features/tasksSlice";
 
 const ViewTasks = () => {
   const { id } = useParams();
@@ -13,6 +14,9 @@ const ViewTasks = () => {
     if (id) {
       dispatch(viewTask(id));
     }
+    return () => {
+      dispatch(resetViewedTask());
+    };
   }, [dispatch, id]);
 
   const CD = viewedTask.created_At
@@ -29,7 +33,7 @@ const ViewTasks = () => {
 
   return (
     <div className="p-4">
-      {isLoading && <Loading />}
+      {isLoading && <Loader />}
       <div className="flex gap-4 flex-col border border-slate-200 p-4 rounded-md bg-white">
         <h2 className="text-2xl font-bold">Task Details</h2>
 
@@ -38,11 +42,11 @@ const ViewTasks = () => {
         <ul className="grid gap-2 flex-col">
           <li className="grid gap-2 items-center grid-cols-2">
             <span className="font-semibold text-slate-600">Task Id</span>
-            <span>Task_ID_{viewedTask?.id}</span>
+            <span>Task_ID_{viewedTask.id || "--"}</span>
           </li>
           <li className="grid gap-2 items-center grid-cols-2">
             <span className="font-semibold text-slate-600">Title</span>
-            <span>{viewedTask?.title}</span>
+            <span>{viewedTask.title || "--"}</span>
           </li>
           <li className="grid gap-2 items-center grid-cols-2">
             <span className="font-semibold text-slate-600">Created At</span>
@@ -54,7 +58,7 @@ const ViewTasks = () => {
           </li>
           <li className="grid gap-2 items-center grid-cols-2">
             <span className="font-semibold text-slate-600">Status</span>
-            <span className="first-letter:uppercase">{viewedTask.status}</span>
+            <span className="first-letter:uppercase">{viewedTask.status || "--"}</span>
           </li>
         </ul>
       </div>

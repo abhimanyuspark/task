@@ -5,7 +5,7 @@ import {
   Input,
   Button,
   validation,
-  Loading,
+  Loader,
   CancelButton,
 } from "../../../components";
 import { useParams, useNavigate } from "react-router";
@@ -91,13 +91,13 @@ const TaskForms = () => {
 
   return (
     <div className="p-4">
-      {isLoading && <Loading />}
+      {isLoading && <Loader />}
       <form
         onSubmit={onSubmit}
         className="flex gap-4 flex-col border border-slate-200 p-4 bg-white rounded-md"
       >
         <h2 className="text-2xl font-bold">
-          {id ? "Updated Task" : "Add Task"}
+          {id ? "Update Task" : "Add Task"}
         </h2>
 
         <hr />

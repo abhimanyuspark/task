@@ -3,13 +3,13 @@ import "./App.css";
 import { Suspense } from "react";
 import { Dashboard, NotFound, TaskForms, ViewTasks } from "./pages";
 import { Layout } from "./layout";
-import { Loading } from "./components";
+import { Loader } from "./components";
 import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <div>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Dashboard />} />

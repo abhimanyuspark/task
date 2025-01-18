@@ -1,11 +1,5 @@
-import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import Swal from "sweetalert2";
-import { Link, useLocation, useNavigate } from "react-router";
-import { DateFilter, MenuOptions } from "../../../components";
-import { FaEdit, FaTrash, FaEye } from "../../../components/Icons";
-import { MenuItem } from "@headlessui/react";
-import { deleteTask } from "../../../redux/server/server";
+import { Link } from "react-router";
+import TaskMenu from "../../__comp/TaskMenu";
 // import { statusData } from "../../../data/data";
 
 export const Columns = [
@@ -54,7 +48,7 @@ export const Columns = [
       );
     },
     sortDescFirst: false,
-    filterFn: "myCustomFilterFn"
+    filterFn: "myCustomFilterFn",
   },
   {
     accessorKey: "status",
@@ -90,86 +84,8 @@ export const Columns = [
     enableSorting: false,
     header: () => "Actions",
     cell: (info) => {
-      const dispatch = useDispatch();
-      const navigate = useNavigate();
-      const location = useLocation();
       const { id, title } = info.row.original;
-
-      const Edit = (id) => {
-        navigate(`/edit/${id}`, {
-          state: { from: location },
-        });
-      };
-
-      const View = (id) => {
-        navigate(`/view/${id}`, { state: { from: location } });
-      };
-
-      const Delete = (id) => {
-        Swal.fire({
-          title: "Are you sure?",
-          text: `You want to delete ${title} task!`,
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete!",
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            await dispatch(deleteTask(id));
-            toast.success(title + " Task Deleted SuccessFully");
-          }
-        });
-      };
-
-      return (
-        <MenuOptions>
-          <MenuItem>
-            <button
-              className="group flex w-full items-center gap-2 rounded-sm py-1.5 px-3 data-[focus]:bg-gray-100"
-              onClick={() => {
-                Edit(id);
-              }}
-            >
-              <FaEdit className="size-4" />
-              Edit
-              <kbd className="ml-auto hidden font-sans text-xs group-data-[focus]:inline">
-                ⌘E
-              </kbd>
-            </button>
-          </MenuItem>
-
-          <MenuItem>
-            <button
-              className="group flex w-full items-center gap-2 rounded-sm py-1.5 px-3 data-[focus]:bg-gray-100"
-              onClick={() => {
-                View(id);
-              }}
-            >
-              <FaEye className="size-4" />
-              View
-              <kbd className="ml-auto hidden font-sans text-xs group-data-[focus]:inline">
-                ⌘V
-              </kbd>
-            </button>
-          </MenuItem>
-
-          <MenuItem>
-            <button
-              className="group flex w-full items-center gap-2 rounded-sm py-1.5 px-3 data-[focus]:bg-gray-100"
-              onClick={() => {
-                Delete(id);
-              }}
-            >
-              <FaTrash className="size-4" />
-              Delete
-              <kbd className="ml-auto hidden font-sans text-xs group-data-[focus]:inline">
-                ⌘D
-              </kbd>
-            </button>
-          </MenuItem>
-        </MenuOptions>
-      );
+      return <TaskMenu id={id} title={title} />;
     },
   },
 ];
